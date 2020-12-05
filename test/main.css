@@ -1,0 +1,75 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+nav a {
+    color: aqua;
+}
+header {
+    display: flex;
+    height: 45px;
+    border: 1px solid aqua;
+}
+nav {
+    margin-left: 70%;
+    margin-top: 10px;
+}
+.logo {
+    margin-left: 50px;
+    margin-top: 10px;
+}
+.circle {
+    border: 2px solid #5CCCCC;
+    width: 40px;
+    height: 40px;
+    border-radius: 2em;
+    margin: -2.8% 0 0 45%;
+    z-index: 10000;
+}
+.circle p {
+    margin: 10px 0 0 7px;
+}
+.containerForPersonItem {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr)
+}
+.addedItem {
+    border: 1px solid aqua;
+    width: 200px;
+    height: 300px;
+    margin: 50px 0 0 50px;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.modalContent {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    height: auto;
+}
+.close{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.chosenPicture {
+    padding-bottom: 30px;
+}
+.chosenDescription {
+    padding-bottom: 30px;
+}
