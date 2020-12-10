@@ -10,25 +10,36 @@
     <header class="header">
         <div class="logo">типа логотип</div>
         <nav>
-            <a href="#">хз</a>
-            <a href="#">вай нот</a>
-            <a href="#">чо это</a>
-            <a href="#">верну потом</a>
+            <a href="#">.</a>
+            <a href="#">.</a>
+            <a href="#">.</a>
+            <a href="#">.</a>
         </nav>
     </header>
-    <div class="modal" id="myModal">
+    <div class="firstModal" style="display: none;">
         <div class="modalContent">
             <span class="close">&times;</span>
             <h3>Пожалуйста, добавьте описание для Вашего заказа.</h3>
-            <textarea class="chosenDescription" placeholder="Опишите Ваш продукт" maxlength="50"></textarea><br>
+            <textarea class="chosenDescription" placeholder="Опишите Ваш продукт" maxlength="174"></textarea><br>
+            <h3>Введите краткое описание для лицевой части</h3>
+            <textarea class="miniDescription" placeholder="Краткое описание сюда"></textarea>
             <h3>Пожалуйста, добавьте цену для Вашего заказа.</h3>
-            <input class="chosenCost" placeholder="Введите цену Вашего продукта"></input>
+            <input class="chosenCost" placeholder="Введите цену Вашего продукта" maxlength="10"></input>
             <button type="submit" class="sumbit">Сохранить результат</button>
         </div>
     </div>
+    <div class="secondModal" style="display:none;">
+        <div class="modalContent">
+            <span class="close">&times;</span>
+            <h3>описание товара:</h3>
+            <div class="productDescription"></div>
+            <h3>И стоит он:</h3>
+            <div class="productCost"></div>
+        </div>
+    </div>
     <section class="items">
-        <div class="circle">
-            <p>add</p>
+        <div class="circle" onselectstart = 'return false' onmousedown = 'return false'>
+            <p onselectstart = 'return false' onmousedown = 'return false'>add</p>
         </div>
         <div class="containerForPersonItem"></div>
     </section>

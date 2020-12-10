@@ -42,7 +42,7 @@ nav {
     height: 300px;
     margin: 50px 0 0 50px;
 }
-.modal {
+.firstModal, .secondModal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -72,4 +72,7 @@ nav {
 }
 .chosenDescription {
     padding-bottom: 30px;
+}
+.description {
+    word-wrap:break-word;
 }
