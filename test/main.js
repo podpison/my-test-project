@@ -3,54 +3,67 @@ buttonAdd.addEventListener('click', () => {modal1.style.display = 'block'});
 let modal1 = document.querySelector('.firstModal');
 let modal2 = document.querySelector('.secondModal');
 let close1 = document.querySelector('.close');
-let close2 = document.querySelector('.close'); //Не работает по магическим причинам
+let close2 = document.querySelector('.close'); // Не работает по магическим причинам
 let sumbit = document.querySelector('.sumbit');
 let containerForPersonItem = document.querySelector('.containerForPersonItem');
 let chosenCost = document.querySelector('.chosenCost');
 let chosenDescription = document.querySelector('.chosenDescription');
 let chosenMiniDescription = document.querySelector('.miniDescription');
-sumbit.addEventListener('click', createNewItem);
-function createNewItem(img, miniDescription, goToModalWithMoreDescription) {
-    img = document.createElement('img');
-    img.src = 'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80';
-    img.className = 'img';
-    img.style.width = '200px';
-    img.style.height = '150px';
 
-    miniDescription = chosenMiniDescription.value;
-    miniDescriptionContainer = document.createElement('div');
-    miniDescriptionContainer.className = 'miniDescription';
+class Creator {
+    constructor(options) {
+        this.img = document.createElement('img');
+        this.img.src = options.src;
+        this.img.className = 'img';
+        this.img.style.width = '200px';
+        this.img.style.height = '150px';
 
-    goToModalWithMoreDescription = document.createElement('button');
-    goToModalWithMoreDescription.innerHTML = 'О товаре'
+        this.miniDescription = options.miniDescription;
+        this.miniDescription = chosenMiniDescription.value;
+        this.miniDescriptionContainer = document.createElement('div');
+        this.miniDescriptionContainer.className = 'miniDescription';
 
-    let addedItem = document.createElement('div');
-    addedItem.className = 'addedItem';
-    containerForPersonItem.insertAdjacentElement('beforeend', addedItem);
-    
-    addedItem.insertAdjacentElement('beforeend', img);
+        this.openModalWithMoreDescription = document.createElement('button');
+        this.openModalWithMoreDescription.innerHTML = 'О товаре';
+        this.openModalWithMoreDescription.className = 'openModalWithMoreDescription';
 
-    addedItem.insertAdjacentElement('beforeend', miniDescriptionContainer);
-    miniDescriptionContainer.insertAdjacentText('beforeend', miniDescription);
+        this.addedItem = document.createElement('div');
+        this.addedItem.className = 'addedItem';
+        containerForPersonItem.insertAdjacentElement('beforeend', this.addedItem);
 
-    addedItem.insertAdjacentElement('beforeend', goToModalWithMoreDescription);
-    
-    sessionStorage.setItem('key', chosenDescription.value);
+        this.addedItem.insertAdjacentElement('beforeend', this.img);
+        this.addedItem.insertAdjacentElement('beforeend', this.miniDescriptionContainer);
+        this.miniDescriptionContainer.insertAdjacentText('beforeend', this.miniDescription);
+        
+        this.addedItem.insertAdjacentElement('beforeend', this.openModalWithMoreDescription);
 
-    modal1.style.display = 'none';
-    chosenDescription.value = '';
-    chosenMiniDescription.value = '';
-    chosenCost.value = '';
+        let informationObj = {
+            descripiton: chosenDescription.value,
+        }
 
-    goToModalWithMoreDescription.onclick = (productDescription) => {
-        let secondModal = document.querySelector('.secondModal');
-        productDescription = document.querySelector('.productDescription');
-        productDescription.className = 'productDescription'
-        secondModal.style.display = 'block';
+        this.openModalWithMoreDescription.onclick = () => {
+            modal2.style.display = 'block';
+            let productDescription = document.querySelector('.productDescription');
 
-        productDescription.insertAdjacentText('beforeend', sessionStorage.getItem('key'));
+            productDescription.insertAdjacentText('beforeend', informationObj.descripiton);
+        }
+
+        modal1.style.display = 'none';
+        chosenDescription.value = '';
+        chosenMiniDescription.value = '';
+        chosenCost.value = '';
     }
+    
 }
+
+function CreateNewItem(user) {
+    user = new Creator({
+        src: 'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
+    })
+    // тут как-то это сделать
+}
+
+sumbit.addEventListener('click', CreateNewItem);
 
 window.onclick = (event) => {
     if (event.target == modal1 || event.target == buttonAdd || event.target == close1) {
@@ -60,7 +73,6 @@ window.onclick = (event) => {
         modal2.style.display = 'none'
     }
 }
-
 
 // cost = chosenCost.value;
 // costContainer = document.createElement('div');
