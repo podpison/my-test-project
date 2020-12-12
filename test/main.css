@@ -48,8 +48,6 @@ nav {
     z-index: 1;
     left: 0;
     right: 0;
-    width: 100%;
-    height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.3);
 }
@@ -58,8 +56,7 @@ nav {
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 40%;
-    height: auto;
+    width: 30%;
 }
 .close{
     color: #aaa;
@@ -75,4 +72,28 @@ nav {
 }
 .description {
     word-wrap:break-word;
+}
+
+@media screen and (max-width: 425px) {
+    nav, .containerForPersonItem {
+        overflow: hidden;
+    }
+    .containerForPersonItem {
+        grid-template-columns: 1fr;
+    }
+    .circle {    
+        margin: -10.5% 0 0 45%;
+    }
+    .modal1Content, .modal2Content {
+        width: 50%;
+    }
+    .logo {
+        white-space: nowrap;
+    }
+    nav {
+        margin-left: 30%;
+    }
+    .addedItem {
+        margin-left: 25%;
+    }
 }
