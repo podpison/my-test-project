@@ -11,7 +11,7 @@ let chosenDescription = document.querySelector('.chosenDescription');
 let chosenMiniDescription = document.querySelector('.miniDescription');
 
 class Creator {
-    constructor(options) {
+    constructor(options) {  
         this.img = document.createElement('img');
         this.img.src = options.src;
         this.img.className = 'img';
@@ -39,13 +39,16 @@ class Creator {
 
         let informationObj = {
             descripiton: chosenDescription.value,
+            cost: chosenCost.value,
         }
 
         this.openModalWithMoreDescription.onclick = () => {
             modal2.style.display = 'block';
             let productDescription = document.querySelector('.productDescription');
+            let productCost = document.querySelector('.productCost');
 
-            productDescription.insertAdjacentText('beforeend', informationObj.descripiton);
+            productCost.textContent = informationObj.cost;
+            productDescription.textContent = informationObj.descripiton;
         }
 
         modal1.style.display = 'none';
@@ -57,10 +60,9 @@ class Creator {
 }
 
 function CreateNewItem(user) {
-    user = new Creator({
+    new Creator({
         src: 'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
     })
-    // тут как-то это сделать
 }
 
 sumbit.addEventListener('click', CreateNewItem);
@@ -73,9 +75,3 @@ window.onclick = (event) => {
         modal2.style.display = 'none'
     }
 }
-
-// cost = chosenCost.value;
-// costContainer = document.createElement('div');
-// costContainer.className = 'cost';
-// costContainer.insertAdjacentText('beforeend', 'Продукт стоит: ' + cost);
-// addedItem.insertAdjacentElement('beforeend', costContainer);
