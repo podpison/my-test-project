@@ -1,17 +1,18 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #bbbbc9;
 }
 a {
     text-decoration: none;
 }
 nav a {
-    color: aqua;
+    color: #71399e;
 }
 header {
     display: flex;
     height: 45px;
-    border: 1px solid aqua;
+    border: 1px solid #71399e;
 }
 nav {
     margin-left: 70%;
@@ -22,7 +23,7 @@ nav {
     margin-top: 10px;
 }
 .circle {
-    border: 2px solid #5CCCCC;
+    border: 1.5px solid #71399e;
     width: 40px;
     height: 40px;
     border-radius: 2em;
@@ -34,13 +35,15 @@ nav {
 }
 .containerForPersonItem {
     display: grid;
-    grid-template-columns: repeat(6, 1fr)
+    grid-template-columns: repeat(6, 1fr);
 }
 .addedItem {
-    border: 1px solid aqua;
+    border: 1px solid #71399e;
     width: 200px;
     height: 300px;
     margin: 50px 0 0 50px;
+    background: linear-gradient(to bottom, #171764, #8b7a8b);
+    color: #ccc9cc;
 }
 .firstModal, .secondModal {
     display: none;
@@ -50,6 +53,7 @@ nav {
     right: 0;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.3);
+    height: 100%;
 }
 .modal1Content, .modal2Content {
     background-color: #fefefe;
@@ -64,14 +68,32 @@ nav {
     font-size: 28px;
     font-weight: bold;
 }
-.chosenPicture {
+.chosenPicture, .chosenDescription {
     padding-bottom: 30px;
 }
-.chosenDescription {
-    padding-bottom: 30px;
+.sumbit {
+    margin-top: 30px;
 }
 .description {
     word-wrap:break-word;
+}
+.openModalWithMoreDescription {
+    background-color: #a8a2a8;
+    color: #eedcee;
+}
+.modal1Content {
+    background: linear-gradient(to bottom, #292983, #8b7a8b);
+    color: #00000e;
+}
+.modal2Content {
+    color: #554755;
+}
+.chosenDescription, .miniDescription, .chosenCost, .sumbit {
+    background: #6060bd;
+    border-radius: 1em;
+}
+.modal1Content h3 {
+    color: #0c0c2c;
 }
 
 @media screen and (max-width: 425px) {
@@ -86,6 +108,7 @@ nav {
     }
     .modal1Content, .modal2Content {
         width: 50%;
+        margin-top: 25px;
     }
     .logo {
         white-space: nowrap;
@@ -95,5 +118,23 @@ nav {
     }
     .addedItem {
         margin-left: 25%;
+    }
+    .modal2Content {
+        margin-top: 35%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .circle {    
+        margin: -14% 0 0 45%;
+    }
+    .logo {
+        margin-left: 30px;
+    }
+    nav a {
+        white-space: nowrap;
+    }
+    .addedItem {
+        margin-left: 19%;
     }
 }

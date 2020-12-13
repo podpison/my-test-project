@@ -21,7 +21,6 @@ class Creator {
         this.miniDescription = options.miniDescription;
         this.miniDescription = chosenMiniDescription.value;
         this.miniDescriptionContainer = document.createElement('div');
-        this.miniDescriptionContainer.className = 'miniDescription';
 
         this.openModalWithMoreDescription = document.createElement('button');
         this.openModalWithMoreDescription.innerHTML = 'О товаре';
@@ -49,6 +48,8 @@ class Creator {
 
             productCost.textContent = informationObj.cost;
             productDescription.textContent = informationObj.descripiton;
+
+            buttonAdd.style.display = 'none';
         }
 
         modal1.style.display = 'none';
@@ -69,9 +70,10 @@ sumbit.addEventListener('click', CreateNewItem);
 
 window.onclick = (event) => {
     if (event.target == modal1 || event.target == buttonAdd || event.target == close1) {
-        modal1.style.display = 'none'
+        modal1.style.display = 'none';
     }
     if (event.target == modal2 || event.target == close2) {
-        modal2.style.display = 'none'
+        modal2.style.display = 'none';
+        buttonAdd.style.display = 'block';
     }
 }
