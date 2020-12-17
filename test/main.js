@@ -9,64 +9,61 @@ let containerForPersonItem = document.querySelector('.containerForPersonItem');
 let chosenCost = document.querySelector('.chosenCost');
 let chosenDescription = document.querySelector('.chosenDescription');
 let chosenMiniDescription = document.querySelector('.miniDescription');
+let item = 0;
 
-class Creator {
-    constructor(options) {  
-        this.img = document.createElement('img');
-        this.img.src = options.src;
-        this.img.className = 'img';
-        this.img.style.width = '200px';
-        this.img.style.height = '150px';
+function creator(img, miniDescription) {
+    this.img = img;
+    this.img = document.createElement('img');
+    this.img.src = 'https://static9.depositphotos.com/1594308/1110/i/950/depositphotos_11107478-stock-photo-fantasy.jpg'
+    this.img.className = 'img';
+    this.img.style.width = '200px';
+    this.img.style.height = '150px';
 
-        this.miniDescription = options.miniDescription;
-        this.miniDescription = chosenMiniDescription.value;
-        this.miniDescriptionContainer = document.createElement('div');
+    this.miniDescription = miniDescription;
+    this.miniDescription = chosenMiniDescription.value;
+    this.miniDescriptionContainer = document.createElement('div');
 
-        this.openModalWithMoreDescription = document.createElement('button');
-        this.openModalWithMoreDescription.innerHTML = 'О товаре';
-        this.openModalWithMoreDescription.className = 'openModalWithMoreDescription';
+    this.openModalWithMoreDescription = document.createElement('button');
+    this.openModalWithMoreDescription.innerHTML = 'О товаре';
+    this.openModalWithMoreDescription.className = 'openModalWithMoreDescription';
 
-        this.addedItem = document.createElement('div');
-        this.addedItem.className = 'addedItem';
-        containerForPersonItem.insertAdjacentElement('beforeend', this.addedItem);
+    this.addedItem = document.createElement('div');
+    this.addedItem.className = 'addedItem';
+    containerForPersonItem.insertAdjacentElement('beforeend', this.addedItem);
 
-        this.addedItem.insertAdjacentElement('beforeend', this.img);
-        this.addedItem.insertAdjacentElement('beforeend', this.miniDescriptionContainer);
-        this.miniDescriptionContainer.insertAdjacentText('beforeend', this.miniDescription);
-        
-        this.addedItem.insertAdjacentElement('beforeend', this.openModalWithMoreDescription);
+    this.addedItem.insertAdjacentElement('beforeend', this.img);
+    this.addedItem.insertAdjacentElement('beforeend', this.miniDescriptionContainer);
+    this.miniDescriptionContainer.insertAdjacentText('beforeend', this.miniDescription);
 
-        let informationObj = {
-            descripiton: chosenDescription.value,
-            cost: chosenCost.value,
-        }
+    this.addedItem.insertAdjacentElement('beforeend', this.openModalWithMoreDescription);
 
-        this.openModalWithMoreDescription.onclick = () => {
-            modal2.style.display = 'block';
-            let productDescription = document.querySelector('.productDescription');
-            let productCost = document.querySelector('.productCost');
-
-            productCost.textContent = informationObj.cost;
-            productDescription.textContent = informationObj.descripiton;
-
-            buttonAdd.style.display = 'none';
-        }
-
-        modal1.style.display = 'none';
-        chosenDescription.value = '';
-        chosenMiniDescription.value = '';
-        chosenCost.value = '';
+    let informationObj = {
+        img: this.img.src,
+        descripiton: chosenDescription.value,
+        miniDescription: this.miniDescription,
+        cost: chosenCost.value,
     }
-    
+
+    this.openModalWithMoreDescription.onclick = (productDescription, productCost) => {
+        modal2.style.display = 'block';
+        productDescription = document.querySelector('.productDescription');
+        productCost = document.querySelector('.productCost');
+
+        productCost.textContent = informationObj.cost;
+        productDescription.textContent = informationObj.descripiton;
+
+        buttonAdd.style.display = 'none';
+    }
+
+    localStorage.setItem('item', JSON.stringify(informationObj));
+
+    modal1.style.display = 'none';
+    chosenDescription.value = '';
+    chosenMiniDescription.value = '';
+    chosenCost.value = '';
 }
 
-function CreateNewItem(user) {
-    new Creator({
-        src: 'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
-    })
-}
-
-sumbit.addEventListener('click', CreateNewItem);
+sumbit.addEventListener('click', creator);
 
 window.onclick = (event) => {
     if (event.target == modal1 || event.target == buttonAdd || event.target == close1) {
@@ -75,5 +72,47 @@ window.onclick = (event) => {
     if (event.target == modal2 || event.target == close2) {
         modal2.style.display = 'none';
         buttonAdd.style.display = 'block';
+    }
+}
+let savedItem = localStorage.getItem('item');
+let getSavedItem = JSON.parse(savedItem);
+
+document.onreadystatechange = function () {
+    if (getSavedItem) {
+        if (document.readyState == "interactive") {
+            img = document.createElement('img');
+            img.src = getSavedItem.img;
+            img.className = 'img';
+            img.style.width = '200px';
+            img.style.height = '150px';
+            
+            miniDescription = getSavedItem.miniDescription;
+            miniDescriptionContainer = document.createElement('div');
+            
+            openModalWithMoreDescription = document.createElement('button');
+            openModalWithMoreDescription.innerHTML = 'О товаре';
+            openModalWithMoreDescription.className = 'openModalWithMoreDescription';
+            
+            addedItem = document.createElement('div');
+            addedItem.className = 'addedItem';
+            containerForPersonItem.insertAdjacentElement('beforeend', addedItem);
+            
+            addedItem.insertAdjacentElement('beforeend', img);
+            addedItem.insertAdjacentElement('beforeend', miniDescriptionContainer);
+            miniDescriptionContainer.insertAdjacentText('beforeend', miniDescription);
+            
+            addedItem.insertAdjacentElement('beforeend', openModalWithMoreDescription);
+        
+            openModalWithMoreDescription.onclick = () => {
+                 modal2.style.display = 'block';
+                let productDescription = document.querySelector('.productDescription');
+                let productCost = document.querySelector('.productCost');
+            
+                productCost.textContent = getSavedItem.cost;
+                productDescription.textContent = getSavedItem.descripiton;
+            
+                buttonAdd.style.display = 'none';
+            }
+        }
     }
 }
