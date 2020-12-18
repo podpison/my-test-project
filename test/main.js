@@ -2,8 +2,7 @@ let buttonAdd = document.querySelector('.circle');
 buttonAdd.addEventListener('click', () => {modal1.style.display = 'block'});
 let modal1 = document.querySelector('.firstModal');
 let modal2 = document.querySelector('.secondModal');
-let close1 = document.querySelector('.close');
-let close2 = document.querySelector('.close'); // Не работает по магическим причинам
+let close = document.querySelector('.close');
 let sumbit = document.querySelector('.sumbit');
 let containerForPersonItem = document.querySelector('.containerForPersonItem');
 let chosenCost = document.querySelector('.chosenCost');
@@ -27,15 +26,23 @@ function creator(img, miniDescription) {
     this.openModalWithMoreDescription.innerHTML = 'О товаре';
     this.openModalWithMoreDescription.className = 'openModalWithMoreDescription';
 
+    this.deleteButton = document.createElement('button');
+    this.deleteButton.innerHTML = 'Удалить';
+    this.deleteButton.style.marginLeft = '30px';
+    this.deleteButton.className = 'openModalWithMoreDescription';
+
     this.addedItem = document.createElement('div');
     this.addedItem.className = 'addedItem';
     containerForPersonItem.insertAdjacentElement('beforeend', this.addedItem);
 
+    this.addedItem.insertAdjacentElement('beforeend', this.deleteButton);
     this.addedItem.insertAdjacentElement('beforeend', this.img);
     this.addedItem.insertAdjacentElement('beforeend', this.miniDescriptionContainer);
     this.miniDescriptionContainer.insertAdjacentText('beforeend', this.miniDescription);
 
     this.addedItem.insertAdjacentElement('beforeend', this.openModalWithMoreDescription);
+
+    this.addedItem.insertAdjacentElement('beforeend', this.deleteButton);
 
     let informationObj = {
         img: this.img.src,
@@ -55,7 +62,14 @@ function creator(img, miniDescription) {
         buttonAdd.style.display = 'none';
     }
 
-    localStorage.setItem('item', JSON.stringify(informationObj));
+    this.deleteButton.onclick = (ask) => {
+        ask = confirm('Прадвада ли вы хотите удалить этот элемент?');
+        if (ask === true) {
+            this.addedItem.remove()
+        }
+    }
+
+    localStorage.setItem(`item-${++item}`, JSON.stringify(informationObj));
 
     modal1.style.display = 'none';
     chosenDescription.value = '';
@@ -66,52 +80,69 @@ function creator(img, miniDescription) {
 sumbit.addEventListener('click', creator);
 
 window.onclick = (event) => {
-    if (event.target == modal1 || event.target == buttonAdd || event.target == close1) {
+    if (event.target == modal1 || event.target == buttonAdd || event.target == close) {
         modal1.style.display = 'none';
     }
-    if (event.target == modal2 || event.target == close2) {
+    if (event.target == modal2 || event.target == close) {
         modal2.style.display = 'none';
         buttonAdd.style.display = 'block';
     }
 }
-let savedItem = localStorage.getItem('item');
-let getSavedItem = JSON.parse(savedItem);
-
+let items = {...localStorage};
 document.onreadystatechange = function () {
-    if (getSavedItem) {
-        if (document.readyState == "interactive") {
-            img = document.createElement('img');
-            img.src = getSavedItem.img;
-            img.className = 'img';
-            img.style.width = '200px';
-            img.style.height = '150px';
+    if (document.readyState == "interactive") {
+        if (items) {
+            for (let key in items) {
+                let savedItems = localStorage.getItem(`item-${++item}`);
+                let getSavedItems = JSON.parse(savedItems);
+
+                img = document.createElement('img');
+                img.src = getSavedItems.img;
+                img.className = 'img';
+                img.style.width = '200px';
+                img.style.height = '150px';
+                
+                miniDescription = getSavedItems.miniDescription;
+                miniDescriptionContainer = document.createElement('div');
+                
+                openModalWithMoreDescription = document.createElement('button');
+                openModalWithMoreDescription.innerHTML = 'О товаре';
+                openModalWithMoreDescription.className = 'openModalWithMoreDescription';
+
+                let deleteButton = document.createElement('button');
+                deleteButton.innerHTML = 'Удалить';
+                deleteButton.style.marginLeft = '30px';
+                deleteButton.className = 'openModalWithMoreDescription';
+                
+                addedItem = document.createElement('div');
+                addedItem.className = 'addedItem';
+                containerForPersonItem.insertAdjacentElement('beforeend', addedItem);
+                
+                addedItem.insertAdjacentElement('beforeend', img);
+                addedItem.insertAdjacentElement('beforeend', miniDescriptionContainer);
+                miniDescriptionContainer.insertAdjacentText('beforeend', miniDescription);
+                
+                addedItem.insertAdjacentElement('beforeend', openModalWithMoreDescription);
+
+                addedItem.insertAdjacentElement('beforeend', deleteButton);
             
-            miniDescription = getSavedItem.miniDescription;
-            miniDescriptionContainer = document.createElement('div');
-            
-            openModalWithMoreDescription = document.createElement('button');
-            openModalWithMoreDescription.innerHTML = 'О товаре';
-            openModalWithMoreDescription.className = 'openModalWithMoreDescription';
-            
-            addedItem = document.createElement('div');
-            addedItem.className = 'addedItem';
-            containerForPersonItem.insertAdjacentElement('beforeend', addedItem);
-            
-            addedItem.insertAdjacentElement('beforeend', img);
-            addedItem.insertAdjacentElement('beforeend', miniDescriptionContainer);
-            miniDescriptionContainer.insertAdjacentText('beforeend', miniDescription);
-            
-            addedItem.insertAdjacentElement('beforeend', openModalWithMoreDescription);
-        
-            openModalWithMoreDescription.onclick = () => {
-                 modal2.style.display = 'block';
-                let productDescription = document.querySelector('.productDescription');
-                let productCost = document.querySelector('.productCost');
-            
-                productCost.textContent = getSavedItem.cost;
-                productDescription.textContent = getSavedItem.descripiton;
-            
-                buttonAdd.style.display = 'none';
+                openModalWithMoreDescription.onclick = () => {
+                    modal2.style.display = 'block';
+                    let productDescription = document.querySelector('.productDescription');
+                    let productCost = document.querySelector('.productCost');
+                
+                    productCost.textContent = getSavedItems.cost;
+                    productDescription.textContent = getSavedItems.descripiton;
+                
+                    buttonAdd.style.display = 'none';
+                }
+
+                deleteButton.onclick = (ask) => {
+                    ask = confirm('Прадвада ли вы хотите удалить этот элемент?');
+                    if (ask === true) {
+                        containerForPersonItem.removeChild(addedItem);
+                    }
+                }
             }
         }
     }
