@@ -124,7 +124,7 @@ nav {
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 340px) {
     .circle {    
         margin: -14% 0 0 45%;
     }
@@ -136,5 +136,11 @@ nav {
     }
     .addedItem {
         margin-left: 19%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .circle {
+        margin: -12% 0 0 45%;
     }
 }
