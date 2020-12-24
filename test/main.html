@@ -16,26 +16,26 @@
     <div class="firstModal" style="display: none;">
         <div class="modal1Content">
             <span class="close">&times;</span>
-            <h3>Пожалуйста, добавьте описание для Вашего заказа.</h3>
-            <textarea class="chosenDescription" placeholder="Опишите Ваш продукт" maxlength="174">4</textarea><br>
-            <h3>Введите краткое описание для лицевой части</h3>
-            <textarea class="miniDescription" placeholder="Краткое описание сюда">4</textarea>
-            <h3>Пожалуйста, добавьте цену для Вашего заказа.</h3>
-            <input class="chosenCost" placeholder="Введите цену Вашего продукта" maxlength="10" value=5></input><br>
-            <button type="submit" class="sumbit">Сохранить результат</button>
+            <h3>Введите ссылку на картинку</h3>
+            <input class='chosenImg' type="text" placeholder="Выберите картинку"></input>
+            <h3>Описание заметки</h3>
+            <textarea class="chosenDescription" placeholder="Сюда описание :)" maxlength="174"></textarea><br>
+            <h3>Краткое описание заметки</h3>
+            <textarea class="miniDescription" placeholder="Сюда описание лицевой части :)"></textarea><br>
+            <button type="submit" class="sumbit">Сохранить</button>
         </div>
     </div>
     <div class="secondModal" style="display:none;">
         <div class="modal2Content">
             <span class="close">&times;</span>
-            <h3>описание товара:</h3>
+            <h3>Напоминание:</h3>
             <div class="productDescription"></div>
-            <h3>И стоит он:</h3>
-            <div class="productCost"></div>
+            <h3>Дата создания</h3>
+            <div class="createdDate"></div>
         </div>
     </div>
     <section class="items">
-        <div class="circle" onselectstart = 'return false' onmousedown = 'return false'>
+        <div class="circle" onselectstart='return false' onmousedown='return false'>
             <p onselectstart = 'return false' onmousedown = 'return false'>add</p>
         </div>
         <div class="containerForPersonItem"></div>

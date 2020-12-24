@@ -60,7 +60,7 @@ nav {
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 30%;
+    width: 15%;
 }
 .close{
     color: #aaa;
@@ -77,7 +77,7 @@ nav {
 .description {
     word-wrap:break-word;
 }
-.openModalWithMoreDescription {
+.openModalWithMoreDescription, .deleteButton {
     background-color: #a8a2a8;
     color: #eedcee;
 }
@@ -88,12 +88,19 @@ nav {
 .modal2Content {
     color: #554755;
 }
-.chosenDescription, .miniDescription, .chosenCost, .sumbit {
+.chosenDescription, .miniDescription, .chosenCost, .sumbit, .chosenImg {
     background: #6060bd;
     border-radius: 1em;
 }
 .modal1Content h3 {
     color: #0c0c2c;
+}
+.img {
+    width: 200px;
+    height: 150px;
+}
+.danger {
+    border-color: red;
 }
 
 @media screen and (max-width: 425px) {
@@ -123,24 +130,25 @@ nav {
         margin-top: 35%;
     }
 }
-
+@media screen and (max-width: 375px) {
+    .circle {
+        margin: -12% 0 0 45%;
+    }
+}
 @media screen and (max-width: 340px) {
     .circle {    
         margin: -14% 0 0 45%;
     }
     .logo {
-        margin-left: 30px;
+        margin-left: 15px;
     }
     nav a {
         white-space: nowrap;
     }
+    nav {
+        margin-left: 20%;
+    }
     .addedItem {
         margin-left: 19%;
-    }
-}
-
-@media screen and (max-width: 375px) {
-    .circle {
-        margin: -12% 0 0 45%;
     }
 }

@@ -5,18 +5,20 @@ let modal2 = document.querySelector('.secondModal');
 let close = document.querySelector('.close');
 let sumbit = document.querySelector('.sumbit');
 let containerForPersonItem = document.querySelector('.containerForPersonItem');
-let chosenCost = document.querySelector('.chosenCost');
 let chosenDescription = document.querySelector('.chosenDescription');
 let chosenMiniDescription = document.querySelector('.miniDescription');
+let chosenImg = document.querySelector('.chosenImg');
 let item = 0;
 
 function creator(img, miniDescription) {
     this.img = img;
     this.img = document.createElement('img');
-    this.img.src = 'https://static9.depositphotos.com/1594308/1110/i/950/depositphotos_11107478-stock-photo-fantasy.jpg'
+    this.img.src = chosenImg.value;
     this.img.className = 'img';
     this.img.style.width = '200px';
     this.img.style.height = '150px';
+
+    this.date = new Date();
 
     this.miniDescription = miniDescription;
     this.miniDescription = chosenMiniDescription.value;
@@ -48,33 +50,32 @@ function creator(img, miniDescription) {
         img: this.img.src,
         descripiton: chosenDescription.value,
         miniDescription: this.miniDescription,
-        cost: chosenCost.value,
+        date: this.date,
     }
 
-    this.openModalWithMoreDescription.onclick = (productDescription, productCost) => {
+    this.openModalWithMoreDescription.onclick = (productDescription, createdDate) => {
         modal2.style.display = 'block';
         productDescription = document.querySelector('.productDescription');
-        productCost = document.querySelector('.productCost');
+        createdDate = document.querySelector('.createdDate');
 
-        productCost.textContent = informationObj.cost;
         productDescription.textContent = informationObj.descripiton;
+        createdDate.textContent = informationObj.date;
 
         buttonAdd.style.display = 'none';
     }
 
-    this.deleteButton.onclick = (ask) => {
-        ask = confirm('Прадвада ли вы хотите удалить этот элемент?');
-        if (ask === true) {
-            this.addedItem.remove()
-        }
+    this.deleteButton.onclick = () => {
+        let question = confirm('Прадвада ли вы хотите удалить этот элемент?');
+        if (question === true) {
+            let findedItem = document.querySelector('.addedItem');
+            findedItem.remove();
     }
-
+}
     localStorage.setItem(`item-${++item}`, JSON.stringify(informationObj));
 
     modal1.style.display = 'none';
     chosenDescription.value = '';
     chosenMiniDescription.value = '';
-    chosenCost.value = '';
 }
 
 sumbit.addEventListener('click', creator);
@@ -126,21 +127,23 @@ document.onreadystatechange = function () {
 
                 addedItem.insertAdjacentElement('beforeend', deleteButton);
             
-                openModalWithMoreDescription.onclick = () => {
+                openModalWithMoreDescription.onclick = (productDescription, createdDate) => {
                     modal2.style.display = 'block';
-                    let productDescription = document.querySelector('.productDescription');
-                    let productCost = document.querySelector('.productCost');
-                
-                    productCost.textContent = getSavedItems.cost;
+                    productDescription = document.querySelector('.productDescription');
+                    createdDate = document.querySelector('.createdDate');
+
                     productDescription.textContent = getSavedItems.descripiton;
-                
+                    createdDate.textContent = getSavedItems.date;
+
                     buttonAdd.style.display = 'none';
                 }
 
-                deleteButton.onclick = (ask) => {
-                    ask = confirm('Прадвада ли вы хотите удалить этот элемент?');
-                    if (ask === true) {
-                        containerForPersonItem.removeChild(addedItem);
+                deleteButton.onclick = () => {
+                    let question = confirm('Прадвада ли вы хотите удалить этот элемент?');
+                    if (question === true) {
+                        let findedItem = document.querySelector('.addedItem');
+                        localStorage.removeItem(key);
+                        findedItem.remove();
                     }
                 }
             }
